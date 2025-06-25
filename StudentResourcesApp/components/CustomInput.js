@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         marginBottom: 8,
-        color: 'blue',
+        color: '#333',
     },
     input: {
         height: 40,
