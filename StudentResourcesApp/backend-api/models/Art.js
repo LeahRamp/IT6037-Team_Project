@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ArtSchema = mongoose.Schema({
+const ArtSchema = new mongoose.Schema({
 title: String,
 type: String,
 born: Date,
