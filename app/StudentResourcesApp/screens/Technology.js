@@ -10,7 +10,7 @@ const Technology = () => {
   const fetchTechnology = async () => {
     try {
       const res = await axios.get('http://10.0.2.2:5000/api/Technology'); // This hits your route
-      setTechnologyworks(res.data);
+      setTechnlogyworks(res.data);
     } catch (err) {
       console.error('Error fetching Technology:', err);
     } finally {
@@ -34,7 +34,7 @@ const Technology = () => {
     <View style={styles.container}>
       {loading ? (
         <ActivityIndicator size="large" color="#000" />
-      ) : Technologysworks.length > 0 ? (
+      ) : Technologyworks.length > 0 ? (
         <FlatList
           data={Technologyworks}
           renderItem={renderItem}
