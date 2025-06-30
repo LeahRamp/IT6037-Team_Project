@@ -10,7 +10,7 @@ const Technology = () => {
   const fetchTechnology = async () => {
     try {
       const res = await axios.get('http://10.0.2.2:5000/api/Technology'); // This hits your route
-      setTechnlogyworks(res.data);
+      setTechnologyworks(res.data);
     } catch (err) {
       console.error('Error fetching Technology:', err);
     } finally {
