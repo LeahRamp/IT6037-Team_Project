@@ -2,30 +2,30 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 const ViewMathematics = ({ route }) => {
-const { Mathematics } = route.params;
+const { mathematics } = route.params;
 
 return (
     <ScrollView contentContainerStyle={styles.container}>
     <Text style={styles.label}>Title:</Text>
-    <Text style={styles.title}>{Mathematics.Title}</Text>
+    <Text style={styles.title}>{mathematics.Title}</Text>
 
     <Text style={styles.label}>Type:</Text>
-    <Text style={styles.meta}>{Mathematics.Type}</Text>
+    <Text style={styles.meta}>{mathematics.Type}</Text>
 
     <Text style={styles.label}>Born:</Text>
-    <Text style={styles.meta}>{Mathematics.Born}</Text>
+    <Text style={styles.meta}>{mathematics.Born}</Text>
 
     <Text style={styles.label}>Died:</Text>
-    <Text style={styles.meta}>{Mathematics.Died}</Text>
+    <Text style={styles.meta}>{mathematics.Died}</Text>
 
     <Text style={styles.label}>Known For:</Text>
-    <Text style={styles.meta}>{Mathematics.KnownFor}</Text>
+    <Text style={styles.meta}>{mathematics.KnownFor}</Text>
 
     <Text style={styles.label}>About:</Text>
-    <Text style={styles.about}>{Mathematics.About}</Text>
+    <Text style={styles.about}>{mathematics.About}</Text>
 
     <Text style={styles.label}>ID:</Text>
-    <Text style={styles.meta}>{Mathematics._id}</Text>
+    <Text style={styles.meta}>{mathematics._id}</Text>
 </ScrollView>
 );
 };
