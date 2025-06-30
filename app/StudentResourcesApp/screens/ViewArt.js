@@ -6,12 +6,44 @@ const ViewArt = ({ route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{art.Title}</Text>
-      <Text style={styles.about}>{art.About}</Text>
-      {/* Add other fields like image, artist, year, etc., if available */}
-      {/* Example: */}
-      {art.artist && <Text style={styles.meta}>Artist: {art.artist}</Text>}
-      {art.year && <Text style={styles.meta}>Year: {art.year}</Text>}
+      <Text style={styles.label}>ID:</Text>
+      <Text style={styles.value}>{art._id}</Text>
+
+      <Text style={styles.label}>Title:</Text>
+      <Text style={styles.value}>{art.Title}</Text>
+
+      <Text style={styles.label}>Type:</Text>
+      <Text style={styles.value}>{art.Type}</Text>
+
+      <Text style={styles.label}>Born:</Text>
+      <Text style={styles.value}>{art.Born}</Text>
+
+      <Text style={styles.label}>Died:</Text>
+      <Text style={styles.value}>{art.Died}</Text>
+
+      <Text style={styles.label}>Nationality:</Text>
+      <Text style={styles.value}>{art.Nationality}</Text>
+
+      <Text style={styles.label}>Known for:</Text>
+      <Text style={styles.value}>{art.Knownfor}</Text>
+
+      <Text style={styles.label}>Notable works:</Text>
+      <Text style={styles.value}>{art.Notableworks}</Text>
+
+      <Text style={styles.label}>About:</Text>
+      <Text style={styles.value}>{art.About}</Text>
+
+      <Text style={styles.label}>Year:</Text>
+      <Text style={styles.value}>{art.Year}</Text>
+
+      <Text style={styles.label}>Medium:</Text>
+      <Text style={styles.value}>{art.Medium}</Text>
+
+      <Text style={styles.label}>Dimensions:</Text>
+      <Text style={styles.value}>{art.Dimensions}</Text>
+
+      <Text style={styles.label}>Location:</Text>
+      <Text style={styles.value}>{art.Location}</Text>
     </ScrollView>
   );
 };
@@ -23,17 +55,15 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  about: {
+  label: {
     fontSize: 16,
-    marginBottom: 20,
+    fontWeight: '600',
+    marginTop: 10,
+    color: '#333',
   },
-  meta: {
-    fontSize: 14,
+  value: {
+    fontSize: 15,
     color: '#555',
+    marginBottom: 5,
   },
 });
