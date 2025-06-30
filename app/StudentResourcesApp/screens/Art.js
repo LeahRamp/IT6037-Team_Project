@@ -1,40 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-import Card from '../components/Card'; // adjust path if needed
+import Card from '../components/Card';
+import { useNavigation } from '@react-navigation/native';
 
 const Art = () => {
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const fetchArt = async () => {
-    try {
-      const res = await axios.get('http://10.0.2.2:5000/api/art'); // This hits your route
-      setArtworks(res.data);
-    } catch (err) {
-      console.error('Error fetching art:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigation = useNavigation();
 
   useEffect(() => {
-    fetchArt();
+    axios.get('http://10.0.2.2:5000/api/art')
+      .then(res => setArtworks(res.data))
+      .catch(err => console.error('Error fetching art:', err))
+      .finally(() => setLoading(false));
   }, []);
 
   const renderItem = ({ item }) => (
     <Card 
       title={item.Title} 
       about={item.About} 
-      onPress={() => console.log(`Pressed on ${item.title}`)} 
+      onPress={() => navigation.navigate('ViewArt', { art: item })} 
     />
   );
 
   return (
     <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator size="large" color="#000" />
-      ) : artworks.length > 0 ? (
+        <ActivityIndicator size="large" />
+      ) : (
         <FlatList
           data={artworks}
           renderItem={renderItem}
@@ -42,8 +36,6 @@ const Art = () => {
           numColumns={2}
           columnWrapperStyle={styles.row}
         />
-      ) : (
-        <Text>No art found.</Text>
       )}
     </View>
   );
