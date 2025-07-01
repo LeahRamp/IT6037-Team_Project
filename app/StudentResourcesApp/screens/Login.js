@@ -9,47 +9,35 @@ import '../firebaseconfig';
 // Firebase authentication functions
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-// Functional component for Login screen
 const Login = ({ navigation }) => {
-  // State variables to hold user input for email and password
   const [email, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-   // Hardcoded Admin UID for role-based navigation
-  const ADMIN_UID = 'HdPDpJCvMwPPFOLfA17Oun9799g1'
-
-  // Function to handle login action
   const handleLogin = () => {
-    // Basic validation for empty fields
     if (!email || !password) {
       Alert.alert("Missing Fields", "Please enter both email and password.");
       return;
     }
 
-    // Get Firebase auth instance
     const auth = getAuth();
 
-    // Attempt to sign in using Firebase authentication
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Get details of the user who just signed in
         const signInUser = userCredential.user;
-        console.log("Login Successful:", signInUser.email);
 
-        // Check if the user is an admin and navigate accordingly
-        if (signInUser.uid === ADMIN_UID) {
-          navigation.navigate('AdminPage');
-        }else {
+        // ✅ Log email and UID to the console
+        console.log("Login Successful");
+        console.log("Email:", signInUser.email);
+        console.log("UID:", signInUser.uid);
+
         navigation.navigate('Home');
-        }
       })
       .catch((error) => {
-         // Handle login errors
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("Login Error:", errorCode, errorMessage);
         Alert.alert("Login Failed", errorMessage);
-      });  
+      });
   };
 
   return (
