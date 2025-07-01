@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import Card from '../components/Card';
+import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
 const Mathematics = () => {
@@ -10,18 +11,19 @@ const Mathematics = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    axios.get('http://10.0.2.2:5000/api/mathematics')
+    axios
+      .get('http://10.0.2.2:5000/api/mathematics')
       .then(res => setMathematicsworks(res.data))
       .catch(err => console.error('Error fetching Mathematics:', err))
       .finally(() => setLoading(false));
   }, []);
 
   const renderItem = ({ item }) => (
-    <Card 
-      title={item.title} 
+    <Card
+      title={item.title}
       id={item._id}
-      about={item.about} 
-      onPress={() => navigation.navigate('ViewMathematics', { mathematics: item })} 
+      about={item.about}
+      onPress={() => navigation.navigate('ViewMathematics', { mathematics: item })}
     />
   );
 
@@ -33,9 +35,17 @@ const Mathematics = () => {
         <FlatList
           data={mathematicsworks}
           renderItem={renderItem}
-          keyExtractor={(item) => item._id}
+          keyExtractor={item => item._id}
+          contentContainerStyle={{ paddingBottom: 90 }} // leave room for FAB
         />
       )}
+
+      {/* Floating Add Button */}
+      <CustomButton
+        title="Add"
+        onPress={() => navigation.navigate('AddMathematics')}
+        style={styles.addButton}  // only handles positioning
+      />
     </View>
   );
 };
@@ -47,5 +57,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#f0f0f0',
+  },
+  addButton: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
   },
 });
