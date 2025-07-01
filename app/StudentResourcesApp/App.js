@@ -13,7 +13,9 @@ import Mathematics from './screens/Mathematics';
 import ViewArt from './screens/ViewArt';
 import ViewMathematics from './screens/ViewMathematics';   
 import ViewTechnology from './screens/ViewTechnology';
-import AddArt from './screens/AddArt';    
+import AddArt from './screens/AddArt';
+import AddTechnology from './screens/AddTechnology';
+import AddMathematics from './screens/AddMathematics';  
 
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +37,8 @@ export default function App() {
         <Stack.Screen name="AddArt" component={AddArt} options={{ title: 'Add Art' }} />
         <Stack.Screen name="Technology" component={Technology} />
         <Stack.Screen name="ViewTechnology" component={ViewTechnology} options={{ title: 'Technology Details' }} />
+        <Stack.Screen name="AddTechnology" component={AddTechnology} options={{ title: 'Add Technology' }} />
+        <Stack.Screen name="AddMathematics" component={AddMathematics} options={{ title: 'Add Mathematics' }} />
         <Stack.Screen name="Mathematics" component={Mathematics} />
         <Stack.Screen name="ViewMathematics" component={ViewMathematics} options={{ title: 'Mathematics Details' }} />
       </Stack.Navigator>
