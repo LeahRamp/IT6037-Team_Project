@@ -1,20 +1,17 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp, getApps  } from "firebase/app";
+import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyADQp11ca3ojmrpDM1Kql-vGCWqudIH40c",
-  authDomain: "student-resources-app-b323e.firebaseapp.com",
-  projectId: "student-resources-app-b323e",
-  storageBucket: "student-resources-app-b323e.firebasestorage.app",
-  messagingSenderId: "204569469363",
-  appId: "1:204569469363:web:c3b61ae1a6729fd18b6bc6"
+  apiKey: "AIzaSyB8pAjD5HH1nWa1fiyf7EZuJq4PK8XBwGw",
+  authDomain: "studentresourcesapp.firebaseapp.com",
+  projectId: "studentresourcesapp",
+  storageBucket: "studentresourcesapp.firebasestorage.app",
+  messagingSenderId: "465901266628",
+  appId: "1:465901266628:web:c54a48f793cecb019c4b91"
 };
 
-if (getApps().length === 0) {
-  initializeApp(firebaseConfig);
-}
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

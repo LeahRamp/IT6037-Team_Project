@@ -82,11 +82,6 @@ const Login = ({ navigation }) => {
           title="Login"
           onPress={handleLogin}
         />
-        {/* Temporary button to test navigation */}
-        {/* <CustomButton
-          title="Go to Home"
-          onPress={() => navigation.navigate('Home')}
-        /> */}
       </View>
     </ScrollView>
   );
@@ -99,7 +94,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#fff',
     padding: 24,
   },
   logoContainer: {
