@@ -2,41 +2,41 @@
   "_id": {
     "$oid": "685b3c30ec16873805f21778"
   },
-  "Title": "Bill Gates",
-  "Type": "Biography",
+  "title": "Bill Gates",
+  "type": "Biography",
   "Born": 1955,
-  "Died": null,
-  "Nationality": "USA",
-  "Known for": "Founder of the Microsoft Corporation ",
-  "About": "William Henry Gates III is an American business magnate, investor, author, philanthropist, humanitarian, and principal founder of Microsoft Corporation. During his career at Microsoft, Gates held the positions of chairman, CEO and chief software architect, while also being the largest individual shareholder until May 2014. In 1975, Gates and Paul Allen launched Microsoft, which became the world's largest PC software company. Gates led the company as chief executive officer until stepping down in January 2000, but he remained as chairman and created the position of chief software architect for himself.",
-  "Designed by": null,
-  "Developer": null
+  "died": null,
+  "nationality": "USA",
+  "knownFor": "Founder of the Microsoft Corporation ",
+  "about": "William Henry Gates III is an American business magnate, investor, author, philanthropist, humanitarian, and principal founder of Microsoft Corporation. During his career at Microsoft, Gates held the positions of chairman, CEO and chief software architect, while also being the largest individual shareholder until May 2014. In 1975, Gates and Paul Allen launched Microsoft, which became the world's largest PC software company. Gates led the company as chief executive officer until stepping down in January 2000, but he remained as chairman and created the position of chief software architect for himself.",
+  "designedBy": null,
+  "developer": null
 },
 {
   "_id": {
     "$oid": "685b3c30ec16873805f21779"
   },
-  "Title": "Steve Jobs",
-  "Type": "Biography",
+  "title": "Steve Jobs",
+  "type": "Biography",
   "Born": 1955,
-  "Died": 2011,
-  "Nationality": "USA",
-  "Known for": "Co-creator of the Macintosh, iPod, iPhone, iPad, and first Apple Stores",
-  "About": "Steven Paul Jobs was an American entrepreneur and business magnate. He was the chairman, chief executive officer (CEO), and a co-founder of Apple Inc., chairman and majority shareholder of Pixar, a member of The Walt Disney Company's board of directors following its acquisition of Pixar, and the founder, chairman, and CEO of NeXT. Jobs is widely recognized as a pioneer of the microcomputer revolution of the 1970s and 1980s, along with Apple co-founder Steve Wozniak.",
-  "Designed by": null,
-  "Developer": null
+  "died": 2011,
+  "nationality": "USA",
+  "knownFor": "Co-creator of the Macintosh, iPod, iPhone, iPad, and first Apple Stores",
+  "about": "Steven Paul Jobs was an American entrepreneur and business magnate. He was the chairman, chief executive officer (CEO), and a co-founder of Apple Inc., chairman and majority shareholder of Pixar, a member of The Walt Disney Company's board of directors following its acquisition of Pixar, and the founder, chairman, and CEO of NeXT. Jobs is widely recognized as a pioneer of the microcomputer revolution of the 1970s and 1980s, along with Apple co-founder Steve Wozniak.",
+  "designedBy": null,
+  "developer": null
 },
 {
   "_id": {
     "$oid": "685b3c30ec16873805f2177a"
   },
-  "Title": "Java",
-  "Type": "Programming",
-  "Born": null,
-  "Died": null,
-  "Nationality": null,
-  "Known for": null,
-  "About": "Java is a general-purpose computer-programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible. It is intended to let application developers \"write once, run anywhere\", meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of computer architecture. As of 2016, Java is one of the most popular programming languages in use, particularly for client-server web applications, with a reported 9 million developers. Java was originally developed by James Gosling at Sun Microsystems (which has since been acquired by Oracle Corporation) and released in 1995 as a core component of Sun Microsystems' Java platform. The language derives much of its syntax from C and C++, but it has fewer low-level facilities than either of them.",
-  "Designed by": "James Gosling",
-  "Developer": "Sun Microsystems"
+  "title": "Java",
+  "type": "Programming",
+  "born": null,
+  "died": null,
+  "nationality": null,
+  "knownFor": null,
+  "about": "Java is a general-purpose computer-programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible. It is intended to let application developers \"write once, run anywhere\", meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of computer architecture. As of 2016, Java is one of the most popular programming languages in use, particularly for client-server web applications, with a reported 9 million developers. Java was originally developed by James Gosling at Sun Microsystems (which has since been acquired by Oracle Corporation) and released in 1995 as a core component of Sun Microsystems' Java platform. The language derives much of its syntax from C and C++, but it has fewer low-level facilities than either of them.",
+  "designedBy": "James Gosling",
+  "developer": "Sun Microsystems"
 }]
