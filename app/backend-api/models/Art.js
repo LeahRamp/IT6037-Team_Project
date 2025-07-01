@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 
 const ArtSchema = new mongoose.Schema({
-title: {type: String, required: true},
-born: {type: Date, required: true},
-died: {type: Date, required: true},
-nationality: {type: String, required: true},
-knownfor: {type: String, required: true},
-notableworks: {type: String, required: true},
-about: {type: String, required: true},
-year: {type: Number, required: true},
-medium: {type: String, required: true},
-dimensions: {type: String, required: true},
-location: {type: String, required: true},
+    title: { type: String },     // required
+    type: { type: String },                      // optional
+    born: { type: Date },
+    died: { type: Date },
+    nationality: { type: String },
+    knownFor: { type: String },
+    notableWorks: { type: String },
+    about: { type: String},     // required
+    year: { type: Number },
+    medium: { type: String },
+    dimensions: { type: String },
+    location: { type: String }
 });
 
 module.exports = mongoose.model('Art', ArtSchema, 'Art'); // 'Art' = collection name

@@ -20,9 +20,9 @@ const Art = () => {
 
   const renderItem = ({ item }) => (
     <Card
-      title={item.Title}
+      title={item.title}
       id={item._id}
-      about={item.About}
+      about={item.about}
       onPress={() => navigation.navigate('ViewArt', { art: item })}
     />
   );

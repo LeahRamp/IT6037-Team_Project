@@ -3,11 +3,12 @@ const Art = require('../models/Art');
 // Create
 exports.createArticle = async (req, res) => {
   try {
-    const article = new Art(req.body);
-    await article.save();
-    res.json(article);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to create article' });
+    const art = new Art(req.body);
+    await art.save();
+    res.status(201).json(art);
+  } catch (err) {
+    console.error(err); // Log this to see details
+    res.status(500).json({ message: 'Server Error', error: err.message });
   }
 };
 
