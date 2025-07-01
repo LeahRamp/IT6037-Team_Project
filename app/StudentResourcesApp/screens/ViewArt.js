@@ -6,10 +6,8 @@ const ViewArt = ({ route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Title:</Text>
       <Text style={styles.value}>{art.title}</Text>
 
-      <Text style={styles.label}>ID:</Text>
       <Text style={styles.value}>{art._id}</Text>
 
       <Text style={styles.label}>Type:</Text>

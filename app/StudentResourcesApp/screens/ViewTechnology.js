@@ -6,8 +6,9 @@ const { technology } = route.params;
 
 return (
     <ScrollView contentContainerStyle={styles.container}>
-  <Text style={styles.label}>Title:</Text>
   <Text style={styles.title}>{technology.title}</Text>
+
+  <Text style={styles.meta}>{technology._id}</Text>
   
   <Text style={styles.label}>Type:</Text>
   <Text style={styles.meta}>{technology.type}</Text>
@@ -27,8 +28,7 @@ return (
   <Text style={styles.label}>About:</Text>
   <Text style={styles.about}>{technology.about}</Text>
 
-  <Text style={styles.label}>ID:</Text>
-  <Text style={styles.meta}>{technology._id}</Text>
+
   
   <Text style={styles.label}>Designed by:</Text>
   <Text style={styles.meta}>{technology.designedBy }</Text>

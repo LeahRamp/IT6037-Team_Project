@@ -6,8 +6,9 @@ const { mathematics } = route.params;
 
 return (
     <ScrollView contentContainerStyle={styles.container}>
-    <Text style={styles.label}>Title:</Text>
     <Text style={styles.title}>{mathematics.title}</Text>
+
+    <Text style={styles.meta}>{mathematics._id}</Text>
 
     <Text style={styles.label}>Type:</Text>
     <Text style={styles.meta}>{mathematics.type}</Text>
@@ -24,8 +25,7 @@ return (
     <Text style={styles.label}>About:</Text>
     <Text style={styles.about}>{mathematics.about}</Text>
 
-    <Text style={styles.label}>ID:</Text>
-    <Text style={styles.meta}>{mathematics._id}</Text>
+    
 </ScrollView>
 );
 };
