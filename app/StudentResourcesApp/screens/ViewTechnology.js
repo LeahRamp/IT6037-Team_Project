@@ -8,7 +8,7 @@ return (
     <ScrollView contentContainerStyle={styles.container}>
   <Text style={styles.label}>Title:</Text>
   <Text style={styles.title}>{technology.Title}</Text>
-  <text></text>
+  
   <Text style={styles.label}>Type:</Text>
   <Text style={styles.meta}>{technology.Type}</Text>
 

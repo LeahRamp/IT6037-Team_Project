@@ -1,56 +1,55 @@
 import { Image, ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
 import React, { useState } from 'react';
-import CustomButton from '../components/CustomButton';
 import CustomInput from '../components/CustomInput';
+import CustomButton from '../components/CustomButton';
 
-// Import Firebase auth
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
-// Import Firebase config (this should initialize your app)
+// Importing Firebase configuration
 import '../firebaseconfig';
 
+// Firebase authentication functions
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+// Functional component for Login screen
 const Login = ({ navigation }) => {
-  // State to hold user inputs
-  const [email, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  // State variables to hold user input for email and password
+  const [email, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
-  // Hardcoded UID-role mapping
-  const USER_ROLES = {
-    'HdPDpJCvMwPPFOLfA17Oun9799g1': 'admin',  
-    'xvXwPd9zyOfedRDDpQDgGKXW3Yo2': 'tutor',             
-    // Add more UIDs as needed
-  };
+   // Hardcoded Admin UID for role-based navigation
+  const ADMIN_UID = 'HdPDpJCvMwPPFOLfA17Oun9799g1'
 
-  // Handle login
-  const handleLogin = async () => {
+  // Function to handle login action
+  const handleLogin = () => {
+    // Basic validation for empty fields
     if (!email || !password) {
-      Alert.alert('Missing Fields', 'Please enter both email and password.');
+      Alert.alert("Missing Fields", "Please enter both email and password.");
       return;
     }
 
+    // Get Firebase auth instance
     const auth = getAuth();
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const signInUser = userCredential.user;
+    // Attempt to sign in using Firebase authentication
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Get details of the user who just signed in
+        const signInUser = userCredential.user;
+        console.log("Login Successful:", signInUser.email);
 
-      console.log('Login Successful:', signInUser.email);
-
-      // Get role from hardcoded UID map
-      const role = USER_ROLES[signInUser.uid] || 'user'; // default to 'user'
-
-      // Navigate based on role
-      if (role === 'admin') {
-        navigation.navigate('AdminPage');
-      } else if (role === 'tutor') {
-        navigation.navigate('TutorPage');
-      } else {
+        // Check if the user is an admin and navigate accordingly
+        if (signInUser.uid === ADMIN_UID) {
+          navigation.navigate('AdminPage');
+        }else {
         navigation.navigate('Home');
-      }
-    } catch (error) {
-      console.log('Login Error:', error.code, error.message);
-      Alert.alert('Login Failed', error.message);
-    }
+        }
+      })
+      .catch((error) => {
+         // Handle login errors
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Login Error:", errorCode, errorMessage);
+        Alert.alert("Login Failed", errorMessage);
+      });  
   };
 
   return (
@@ -74,7 +73,7 @@ const Login = ({ navigation }) => {
           value={password}
           onChangeText={setPassword}
           placeholder="Enter your password..."
-          secureTextEntry={true}
+          secureTextEntry
         />
       </View>
 
@@ -83,6 +82,11 @@ const Login = ({ navigation }) => {
           title="Login"
           onPress={handleLogin}
         />
+        {/* Temporary button to test navigation */}
+        {/* <CustomButton
+          title="Go to Home"
+          onPress={() => navigation.navigate('Home')}
+        /> */}
       </View>
     </ScrollView>
   );
@@ -95,21 +99,21 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 16,
+    backgroundColor: '#f8f9fa',
+    padding: 24,
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 32,
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 180,
+    height: 180,
     resizeMode: 'contain',
   },
   formContainer: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 24,
   },
   buttonContainer: {
     width: '100%',

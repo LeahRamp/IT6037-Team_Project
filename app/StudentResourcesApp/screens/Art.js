@@ -18,8 +18,10 @@ const Art = () => {
 
   const renderItem = ({ item }) => (
     <Card 
-      title={item.Title} 
-      about={item.About} 
+      title={item.Title}
+      id={item._id}
+      about={item.About}
+      
       onPress={() => navigation.navigate('ViewArt', { art: item })} 
     />
   );
@@ -33,8 +35,6 @@ const Art = () => {
           data={artworks}
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
-          numColumns={2}
-          columnWrapperStyle={styles.row}
         />
       )}
     </View>
@@ -47,9 +47,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f0f0f0',
-  },
-  row: {
-    justifyContent: 'space-between',
+    backgroundColor: '#f9f9f9',
   },
 });

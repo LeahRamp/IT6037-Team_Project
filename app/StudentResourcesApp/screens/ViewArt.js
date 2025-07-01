@@ -6,11 +6,11 @@ const ViewArt = ({ route }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>ID:</Text>
-      <Text style={styles.value}>{art._id}</Text>
-
       <Text style={styles.label}>Title:</Text>
       <Text style={styles.value}>{art.Title}</Text>
+
+      <Text style={styles.label}>ID:</Text>
+      <Text style={styles.value}>{art._id}</Text>
 
       <Text style={styles.label}>Type:</Text>
       <Text style={styles.value}>{art.Type}</Text>
@@ -25,10 +25,10 @@ const ViewArt = ({ route }) => {
       <Text style={styles.value}>{art.Nationality}</Text>
 
       <Text style={styles.label}>Known for:</Text>
-      <Text style={styles.value}>{art.Knownfor}</Text>
+      <Text style={styles.value}>{art.KnownFor}</Text>
 
       <Text style={styles.label}>Notable works:</Text>
-      <Text style={styles.value}>{art.Notableworks}</Text>
+      <Text style={styles.value}>{art.NotableWorks}</Text>
 
       <Text style={styles.label}>About:</Text>
       <Text style={styles.value}>{art.About}</Text>
