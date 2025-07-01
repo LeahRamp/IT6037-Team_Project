@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const TechSchema = new mongoose.Schema({
-  title: {type: String, required: true},
-  type: {type: String, required: true},
-  born: {type: Date, required: true},
-  died: {type: Date, required: true},
-  knownFor: {type: String, required: true},
-  about: {type: String, required: true},
-  designedBy: {type: String, required: true},
-  developer: {type: String, required: true},
+  title: {type: String},
+  type: {type: String},
+  born: {type: Date},
+  died: {type: Date},
+  knownFor: {type: String},
+  about: {type: String},
+  designedBy: {type: String},
+  developer: {type: String},
 });
 
 module.exports = mongoose.model('Technology', TechSchema, 'Technology');

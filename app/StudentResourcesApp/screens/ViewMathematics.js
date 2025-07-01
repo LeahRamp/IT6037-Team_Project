@@ -7,22 +7,22 @@ const { mathematics } = route.params;
 return (
     <ScrollView contentContainerStyle={styles.container}>
     <Text style={styles.label}>Title:</Text>
-    <Text style={styles.title}>{mathematics.Title}</Text>
+    <Text style={styles.title}>{mathematics.title}</Text>
 
     <Text style={styles.label}>Type:</Text>
-    <Text style={styles.meta}>{mathematics.Type}</Text>
+    <Text style={styles.meta}>{mathematics.type}</Text>
 
     <Text style={styles.label}>Born:</Text>
-    <Text style={styles.meta}>{mathematics.Born}</Text>
+    <Text style={styles.meta}>{mathematics.born}</Text>
 
     <Text style={styles.label}>Died:</Text>
-    <Text style={styles.meta}>{mathematics.Died}</Text>
+    <Text style={styles.meta}>{mathematics.died}</Text>
 
     <Text style={styles.label}>Known For:</Text>
-    <Text style={styles.meta}>{mathematics.KnownFor}</Text>
+    <Text style={styles.meta}>{mathematics.knownFor}</Text>
 
     <Text style={styles.label}>About:</Text>
-    <Text style={styles.about}>{mathematics.About}</Text>
+    <Text style={styles.about}>{mathematics.about}</Text>
 
     <Text style={styles.label}>ID:</Text>
     <Text style={styles.meta}>{mathematics._id}</Text>

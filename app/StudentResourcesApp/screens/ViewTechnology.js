@@ -7,34 +7,34 @@ const { technology } = route.params;
 return (
     <ScrollView contentContainerStyle={styles.container}>
   <Text style={styles.label}>Title:</Text>
-  <Text style={styles.title}>{technology.Title}</Text>
+  <Text style={styles.title}>{technology.title}</Text>
   
   <Text style={styles.label}>Type:</Text>
-  <Text style={styles.meta}>{technology.Type}</Text>
+  <Text style={styles.meta}>{technology.type}</Text>
 
   <Text style={styles.label}>Born:</Text>
-  <Text style={styles.meta}>{technology.Born}</Text>
+  <Text style={styles.meta}>{technology.born}</Text>
 
   <Text style={styles.label}>Died:</Text>
-  <Text style={styles.meta}>{technology.Died}</Text>
+  <Text style={styles.meta}>{technology.died}</Text>
 
   <Text style={styles.label}>Nationality:</Text>
-  <Text style={styles.meta}>{technology.Nationality}</Text>
+  <Text style={styles.meta}>{technology.nationality}</Text>
 
   <Text style={styles.label}>Known For:</Text>
-  <Text style={styles.meta}>{technology.KnownFor}</Text>
+  <Text style={styles.meta}>{technology.knownFor}</Text>
 
   <Text style={styles.label}>About:</Text>
-  <Text style={styles.about}>{technology.About}</Text>
+  <Text style={styles.about}>{technology.about}</Text>
 
   <Text style={styles.label}>ID:</Text>
   <Text style={styles.meta}>{technology._id}</Text>
   
   <Text style={styles.label}>Designed by:</Text>
-  <Text style={styles.meta}>{technology.DesignedBy }</Text>
+  <Text style={styles.meta}>{technology.designedBy }</Text>
 
   <Text style={styles.label}>Developer:</Text>
-  <Text style={styles.meta}>{technology.Developer}</Text>
+  <Text style={styles.meta}>{technology.developer}</Text>
 </ScrollView>
 
 );
