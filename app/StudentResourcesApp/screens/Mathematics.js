@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import axios from 'axios';
 import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+const ALLOWED_UIDS = [
+  '2TWOYgA3THRxv2XnrW0XrjjrLXJ2',
+  'vBXhRnbEncXvlPa47u1DFjmVjUB2',
+];
+
 const Mathematics = () => {
   const [mathematicsworks, setMathematicsworks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userUID, setUserUID] = useState(null);
   const navigation = useNavigation();
+
+ useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        console.log('Logged in UID:', user.uid);
+        setUserUID(user.uid);
+      } else {
+        console.log('No user logged in');
+        setUserUID(null);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     axios
@@ -27,6 +50,14 @@ const Mathematics = () => {
     />
   );
 
+  const handleAddPress = () => {
+      if (ALLOWED_UIDS.includes(userUID)) {
+        navigation.navigate('AddMathematics');
+      } else {
+        Alert.alert('Access Denied', 'You are not authorized to add art.');
+      }
+    };
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -41,11 +72,13 @@ const Mathematics = () => {
       )}
 
       {/* Floating Add Button */}
-      <CustomButton
-        title="Add"
-        onPress={() => navigation.navigate('AddMathematics')}
-        style={styles.addButton}  // only handles positioning
-      />
+      {ALLOWED_UIDS.includes(userUID) && (
+        <CustomButton
+          title="Add"
+          onPress={handleAddPress}
+          style={styles.addButton}
+        />
+      )}
     </View>
   );
 };

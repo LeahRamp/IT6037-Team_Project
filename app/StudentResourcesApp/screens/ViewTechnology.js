@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 
 const ViewTechnology = ({ route }) => {
   const { technology } = route.params;
   const navigation = useNavigation();
   const [deleting, setDeleting] = useState(false);
+  const [userUID, setUserUID] = useState(null);
+  
+  const CAN_EDIT_UIDS = ['2TWOYgA3THRxv2XnrW0XrjjrLXJ2', 'vBXhRnbEncXvlPa47u1DFjmVjUB2'];
+  const CAN_DELETE_UIDS = ['vBXhRnbEncXvlPa47u1DFjmVjUB2'];
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        console.log('Logged in UID:', user.uid);
+        setUserUID(user.uid);
+      } else {
+        setUserUID(null);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   /* ----- delete handler ----- */
   const handleDelete = () => {
@@ -62,16 +81,20 @@ const ViewTechnology = ({ route }) => {
 
       {/* --- Action Buttons --- */}
       <View style={styles.actionBar}>
-        <CustomButton
-          title="Edit"
-          onPress={() => navigation.navigate('EditTechnology', { technology })}
-          style={styles.editBtn}
-        />
-        <CustomButton
-          title={deleting ? 'Deleting…' : 'Delete'}
-          onPress={handleDelete}
-          style={styles.deleteBtn}
-        />
+        {CAN_EDIT_UIDS.includes(userUID) && (
+          <CustomButton
+            title="Edit"
+            onPress={() => navigation.navigate('EditTechnology', { technology })}
+            style={styles.editBtn}
+          />
+        )}
+        {CAN_DELETE_UIDS.includes(userUID) && (
+          <CustomButton
+            title={deleting ? 'Deleting…' : 'Delete'}
+            onPress={handleDelete}
+            style={styles.deleteBtn}
+          />
+        )}
       </View>
     </View>
   );

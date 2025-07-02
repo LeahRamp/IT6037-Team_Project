@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import axios from 'axios';
 import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+const ALLOWED_UIDS = [
+  '2TWOYgA3THRxv2XnrW0XrjjrLXJ2',
+  'vBXhRnbEncXvlPa47u1DFjmVjUB2',
+];
+
 const Art = () => {
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userUID, setUserUID] = useState(null);
   const navigation = useNavigation();
+
+ useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        console.log('Logged in UID:', user.uid);
+        setUserUID(user.uid);
+      } else {
+        console.log('No user logged in');
+        setUserUID(null);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     axios
@@ -20,12 +43,20 @@ const Art = () => {
 
   const renderItem = ({ item }) => (
     <Card
-      title={item.title}        // change to item.Title if your API uses uppercase
+      title={item.title}        
       id={item._id}
       about={item.about}
       onPress={() => navigation.navigate('ViewArt', { art: item })}
     />
   );
+
+  const handleAddPress = () => {
+    if (ALLOWED_UIDS.includes(userUID)) {
+      navigation.navigate('AddArt');
+    } else {
+      Alert.alert('Access Denied', 'You are not authorized to add art.');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -36,16 +67,18 @@ const Art = () => {
           data={artworks}
           renderItem={renderItem}
           keyExtractor={item => item._id}
-          contentContainerStyle={{ paddingBottom: 90 }} // room for FAB
+          contentContainerStyle={{ paddingBottom: 90 }} 
         />
       )}
 
       {/* Floating Add Button */}
-      <CustomButton
-        title="Add"
-        onPress={() => navigation.navigate('AddArt')}
-        style={styles.addButton}   // only positions the FAB
-      />
+      {ALLOWED_UIDS.includes(userUID) && (
+        <CustomButton
+          title="Add"
+          onPress={handleAddPress}
+          style={styles.addButton}
+        />
+      )}
     </View>
   );
 };

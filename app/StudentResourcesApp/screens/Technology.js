@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import axios from 'axios';
 import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+const ALLOWED_UIDS = [
+  '2TWOYgA3THRxv2XnrW0XrjjrLXJ2',
+  'vBXhRnbEncXvlPa47u1DFjmVjUB2',
+];
+
 const Technology = () => {
   const [technologyworks, setTechnologyworks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userUID, setUserUID] = useState(null);
   const navigation = useNavigation();
+
+ useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        console.log('Logged in UID:', user.uid);
+        setUserUID(user.uid);
+      } else {
+        console.log('No user logged in');
+        setUserUID(null);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     axios
@@ -27,6 +50,14 @@ const Technology = () => {
     />
   );
 
+  const handleAddPress = () => {
+      if (ALLOWED_UIDS.includes(userUID)) {
+        navigation.navigate('AddArt');
+      } else {
+        Alert.alert('Access Denied', 'You are not authorized to add art.');
+      }
+    };
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -36,16 +67,18 @@ const Technology = () => {
           data={technologyworks}
           renderItem={renderItem}
           keyExtractor={item => item._id}
-          contentContainerStyle={{ paddingBottom: 90 }} // room for FAB
+          contentContainerStyle={{ paddingBottom: 90 }} 
         />
       )}
 
       {/* Floating Add Button */}
-      <CustomButton
-        title="Add"
-        onPress={() => navigation.navigate('AddTechnology')}
-        style={styles.addButton}   // positioning only
-      />
+      {ALLOWED_UIDS.includes(userUID) && (
+        <CustomButton
+          title="Add"
+          onPress={handleAddPress}
+          style={styles.addButton}
+        />
+      )}
     </View>
   );
 };
