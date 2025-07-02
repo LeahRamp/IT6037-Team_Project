@@ -9,14 +9,16 @@ const Art = () => {
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+const isFocused = useIsFocused();
 
-  useEffect(() => {
-    axios
-      .get('http://10.0.2.2:5000/api/art')
-      .then(res => setArtworks(res.data))
-      .catch(err => console.error('Error fetching art:', err))
-      .finally(() => setLoading(false));
-  }, []);
+useEffect(() => {
+  setLoading(true);
+  axios
+    .get('http://10.0.2.2:5000/api/art')
+    .then(res => setArtworks(res.data))
+    .catch(err => console.error('Error fetching art:', err))
+    .finally(() => setLoading(false));
+}, [isFocused]); // runs whenever screen comes into focus
 
   const renderItem = ({ item }) => (
     <Card
