@@ -46,7 +46,7 @@ const ViewArt = ({ route }) => {
           ['Born', art.born],
           ['Died', art.died],
           ['Nationality', art.nationality],
-          ['Known For', art.KnownFor],
+          ['Known For', art.knownFor],
           ['Notable Works', art.notableWorks],
           ['About', art.about, true], // true means use 'about' style
           ['Year', art.year],
