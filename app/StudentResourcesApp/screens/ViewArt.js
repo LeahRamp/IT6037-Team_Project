@@ -1,59 +1,112 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+// ViewArt.js
+import React, { useEffect, useState, useCallback } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import {
+  useNavigation,
+  useIsFocused,
+  useFocusEffect,
+} from '@react-navigation/native';
 import CustomButton from '../components/CustomButton';
 
 const ViewArt = ({ route }) => {
-  const { art } = route.params;
-  const navigation = useNavigation();
+  const initialArt = route.params.art;          // data passed from previous screen
+  const navigation  = useNavigation();
+  const isFocused   = useIsFocused();           // 👈 tells us when screen is active
+
+  const [art, setArt]           = useState(initialArt);
+  const [loading, setLoading]   = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  /* ----- delete handler ----- */
-  const handleDelete = () => {
-    Alert.alert(
-      'Delete Entry',
-      'Are you sure you want to delete this record?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              setDeleting(true);
-              await axios.delete(`http://10.0.2.2:5000/api/art/${art._id}`);
-              navigation.goBack();             // or navigation.navigate('Art')
-            } catch (err) {
-              Alert.alert('Error', 'Could not delete the record.');
-            } finally {
-              setDeleting(false);
-            }
-          },
-        },
-      ]
-    );
+  /* ---------- fetch single record ---------- */
+  const fetchArt = async () => {
+    setLoading(true);
+    try {
+      const { data } = await axios.get(
+        `http://10.0.2.2:5000/api/art/${initialArt._id}`,
+      );
+      setArt(data);
+    } catch (err) {
+      console.error('Error fetching art:', err);
+      Alert.alert('Error', 'Could not refresh the record.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  /* ---------- refresh on screen focus ---------- */
+  useEffect(() => {
+    if (isFocused) {
+      fetchArt();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+
+  /* ---------- pull‑to‑refresh handler ---------- */
+  const onRefresh = useCallback(fetchArt, []);
+
+  /* ---------- delete handler ---------- */
+  const handleDelete = () => {
+    Alert.alert('Delete Entry', 'Are you sure you want to delete this record?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            setDeleting(true);
+            await axios.delete(`http://10.0.2.2:5000/api/art/${art._id}`);
+            navigation.goBack(); // list screen will refresh itself
+          } catch (err) {
+            Alert.alert('Error', 'Could not delete the record.');
+          } finally {
+            setDeleting(false);
+          }
+        },
+      },
+    ]);
+  };
+
+  /* ---------- render ---------- */
+  if (loading && !art) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.wrapper}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+        }>
         <Text style={styles.title}>{art.title}</Text>
         <Text style={styles.subId}>ID: {art._id}</Text>
 
-        {([
+        {[
           ['Type', art.type],
           ['Born', art.born],
           ['Died', art.died],
           ['Nationality', art.nationality],
           ['Known For', art.knownFor],
           ['Notable Works', art.notableWorks],
-          ['About', art.about, true], // true means use 'about' style
+          ['About', art.about, true],
           ['Year', art.year],
           ['Medium', art.medium],
           ['Dimensions', art.dimensions],
           ['Location', art.location],
-        ]).map(([label, value, isAbout]) => (
+        ].map(([label, value, isAbout]) => (
           <View key={label}>
             <Text style={styles.label}>{label}</Text>
             <Text style={isAbout ? styles.about : styles.value}>
@@ -86,6 +139,8 @@ export default ViewArt;
 const styles = StyleSheet.create({
   wrapper: { flex: 1, backgroundColor: '#fff' },
   container: { padding: 24, paddingBottom: 80 },
+  centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+
   title: {
     fontSize: 26,
     fontWeight: 'bold',
@@ -105,18 +160,9 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     textTransform: 'uppercase',
   },
-  value: {
-    fontSize: 16,
-    color: '#333',
-  },
-  about: {
-    fontSize: 16,
-    color: '#444',
-    lineHeight: 22,
-    marginTop: 4,
-  },
+  value: { fontSize: 16, color: '#333' },
+  about: { fontSize: 16, color: '#444', lineHeight: 22, marginTop: 4 },
 
-  /* Action‑bar styles */
   actionBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
