@@ -1,50 +1,88 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../components/CustomButton';
 
 const ViewTechnology = ({ route }) => {
   const { technology } = route.params;
+  const navigation = useNavigation();
+  const [deleting, setDeleting] = useState(false);
+
+  /* ----- delete handler ----- */
+  const handleDelete = () => {
+    Alert.alert(
+      'Delete Entry',
+      'Are you sure you want to delete this record?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              setDeleting(true);
+              await axios.delete(`http://10.0.2.2:5000/api/technology/${technology._id}`);
+              navigation.goBack();           // or navigation.navigate('Technology')
+            } catch (err) {
+              Alert.alert('Error', 'Could not delete the record.');
+            } finally {
+              setDeleting(false);
+            }
+          },
+        },
+      ]
+    );
+  };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
-      <Text style={styles.title}>{technology.title}</Text>
-      <Text style={styles.subId}>ID: {technology._id}</Text>
+    <View style={styles.wrapper}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* Header */}
+        <Text style={styles.title}>{technology.title}</Text>
+        <Text style={styles.subId}>ID: {technology._id}</Text>
 
-      {/* Details */}
-      <Text style={styles.label}>Type</Text>
-      <Text style={styles.meta}>{technology.type}</Text>
+        {/* Details */}
+        {([
+          ['Type', technology.type],
+          ['Born', technology.born],
+          ['Died', technology.died],
+          ['Nationality', technology.nationality],
+          ['Known For', technology.knownFor],
+          ['About', technology.about, true], // true → use 'about' style
+          ['Designed by', technology.designedBy],
+          ['Developer', technology.developer],
+        ]).map(([label, value, isAbout]) => (
+          <View key={label}>
+            <Text style={styles.label}>{label}</Text>
+            <Text style={isAbout ? styles.about : styles.meta}>{value || 'N/A'}</Text>
+          </View>
+        ))}
+      </ScrollView>
 
-      <Text style={styles.label}>Born</Text>
-      <Text style={styles.meta}>{technology.born}</Text>
-
-      <Text style={styles.label}>Died</Text>
-      <Text style={styles.meta}>{technology.died}</Text>
-
-      <Text style={styles.label}>Nationality</Text>
-      <Text style={styles.meta}>{technology.nationality}</Text>
-
-      <Text style={styles.label}>Known For</Text>
-      <Text style={styles.meta}>{technology.knownFor}</Text>
-
-      <Text style={styles.label}>About</Text>
-      <Text style={styles.about}>{technology.about}</Text>
-
-      <Text style={styles.label}>Designed by</Text>
-      <Text style={styles.meta}>{technology.designedBy}</Text>
-
-      <Text style={styles.label}>Developer</Text>
-      <Text style={styles.meta}>{technology.developer}</Text>
-    </ScrollView>
+      {/* --- Action Buttons --- */}
+      <View style={styles.actionBar}>
+        <CustomButton
+          title="Edit"
+          onPress={() => navigation.navigate('EditTechnology', { technology })}
+          style={styles.editBtn}
+        />
+        <CustomButton
+          title={deleting ? 'Deleting…' : 'Delete'}
+          onPress={handleDelete}
+          style={styles.deleteBtn}
+        />
+      </View>
+    </View>
   );
 };
 
 export default ViewTechnology;
 
+/* ---------- styles ---------- */
 const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-    backgroundColor: '#fff',
-  },
+  wrapper: { flex: 1, backgroundColor: '#fff' },
+  container: { padding: 24, paddingBottom: 80 },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
@@ -74,4 +112,16 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginTop: 4,
   },
+
+  /* Action‑bar styles */
+  actionBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#fafafa',
+  },
+  editBtn: { flex: 1, marginHorizontal: 10 },
+  deleteBtn: { flex: 1, marginHorizontal: 10, backgroundColor: '#e53935' },
 });
