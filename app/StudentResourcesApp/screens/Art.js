@@ -4,22 +4,19 @@ import axios from 'axios';
 import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { useIsFocused } from '@react-navigation/native';
 
 const Art = () => {
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-const isFocused = useIsFocused();
 
-useEffect(() => {
-  setLoading(true);
-  axios
-    .get('http://10.0.2.2:5000/api/art')
-    .then(res => setArtworks(res.data))
-    .catch(err => console.error('Error fetching art:', err))
-    .finally(() => setLoading(false));
-}, [isFocused]); // runs whenever screen comes into focus
+  useEffect(() => {
+    axios
+      .get('http://10.0.2.2:5000/api/art')
+      .then(res => setArtworks(res.data))
+      .catch(err => console.error('Error fetching art:', err))
+      .finally(() => setLoading(false));
+  }, []);
 
   const renderItem = ({ item }) => (
     <Card
