@@ -4,6 +4,7 @@ import axios from 'axios';
 import Card from '../components/Card';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 
 const Art = () => {
   const [artworks, setArtworks] = useState([]);
