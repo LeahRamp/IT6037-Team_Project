@@ -1,5 +1,6 @@
 
 # IT6037 – Team Project
+repo link: https://github.com/LeahRamp/IT6037-Team_Project
 
 This guide helps you set up, run, and test the fullstack student resources application including both backend (Node.js + Express + MongoDB) and frontend (React Native) using Android Studio Emulator.
 
